@@ -1,4 +1,4 @@
-package com.core.service
+package com.core.service.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response

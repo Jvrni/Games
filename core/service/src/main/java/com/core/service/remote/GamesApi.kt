@@ -1,4 +1,4 @@
-package com.core.service
+package com.core.service.remote
 
 import com.core.service.models.GamesResponse
 import retrofit2.http.GET
@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface GamesApi {
 
     @GET("games")
-    suspend fun get(): GamesResponse
+    suspend fun get(): List<GamesResponse>
 }

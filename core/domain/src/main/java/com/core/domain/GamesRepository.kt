@@ -4,5 +4,5 @@ import com.core.domain.models.Games
 import kotlinx.coroutines.flow.Flow
 
 interface GamesRepository {
-    fun get() : Flow<Games>
+    fun get() : Flow<List<Games>>
 }

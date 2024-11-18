@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "com.core.common"
-    compileSdk = 35
+    namespace = "com.core.commons"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
