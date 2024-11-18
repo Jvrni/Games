@@ -1,9 +1,9 @@
 package com.core.service.models
 
-import com.core.domain.models.Games
+import com.core.commons.models.Game
 import com.google.gson.annotations.SerializedName
 
-data class GamesResponse(
+data class GameResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("thumbnail") val thumbnail: String,
@@ -16,7 +16,7 @@ data class GamesResponse(
     @SerializedName("release_date") val releaseDate: String,
     @SerializedName("freetogame_profile_url") val profile: Int
 ) {
-    fun toGames() = Games(
+    fun toGame() = Game(
         id = id,
         title = title,
         thumbnail = thumbnail,

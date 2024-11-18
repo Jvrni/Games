@@ -6,18 +6,18 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
-import com.core.domain.models.Games
+import com.core.destinations.models.Games
 
 @Dao
 interface GamesDao {
 
-    @Query("SELECT * FROM games") fun getAllGames(): List<Games>
+    @Query("SELECT * FROM games") fun getAllGames(): List<com.core.destinations.models.Games>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) fun insertGames(vararg games: Games)
+    @Insert(onConflict = OnConflictStrategy.REPLACE) fun insertGames(vararg games: com.core.destinations.models.Games)
 
     @Update
-    fun updateGames(games: Games)
+    fun updateGames(games: com.core.destinations.models.Games)
 
     @Delete
-    fun deleteGames(games: Games)
+    fun deleteGames(games: com.core.destinations.models.Games)
 }

@@ -1,6 +1,6 @@
 package com.core.service.repository
 
-import com.core.domain.GamesRepository
+import com.core.domain.GameRepository
 import com.core.service.local.GamesDao
 import com.core.service.remote.GamesApi
 import kotlinx.coroutines.flow.flow
@@ -26,10 +26,10 @@ import kotlinx.coroutines.flow.flow
  * En este caso, tenemos nuestro repositorio implementado con flujo de corrutinas para intermediar con nuestra api ([GamesApi])
  */
 
-class GamesRepositoryImpl(
+class GameRepositoryImpl(
     private val service: GamesApi,
     private val dao: GamesDao
-): GamesRepository {
+): GameRepository {
     override fun get() = flow {
         val list = dao.getAllGames()
 
@@ -38,6 +38,6 @@ class GamesRepositoryImpl(
             return@flow
         }
 
-        emit(service.get().map { it.toGames() })
+        emit(service.get().map { it.toGame() })
     }
 }

@@ -1,11 +1,11 @@
-package com.core.domain.models
+package com.core.commons.models
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import com.core.commons.Constants.TABLE_GAMES
 
 @Entity(tableName = TABLE_GAMES)
-data class Games(
+data class Game(
     @PrimaryKey val id: Int,
     val title: String,
     val thumbnail: String,
