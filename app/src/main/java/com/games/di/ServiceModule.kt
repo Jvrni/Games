@@ -35,7 +35,7 @@ val serviceModule = module {
     factory { Interceptor() }
     factory { provideOkHttpClient(get()) }
     factory { provideGamesApi(get()) }
-    factory { provideGamesRepository(get()) }
+    factory { provideGamesRepository(get(), get()) }
 
     single { provideRetrofit(get()) }
     single { provideGameDataBase(get()) }
@@ -51,7 +51,7 @@ fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient =
 
 fun provideGamesApi(retrofit: Retrofit): GamesApi = retrofit.create(GamesApi::class.java)
 
-fun provideGamesRepository(api: GamesApi): GamesRepository = GamesRepositoryImpl(api)
+fun provideGamesRepository(api: GamesApi, dao: GamesDao): GamesRepository = GamesRepositoryImpl(api, dao)
 
 fun provideGameDataBase(application: Application): AppDataBase =
     Room.databaseBuilder(
