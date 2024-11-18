@@ -1,9 +1,14 @@
 package com.games.di
 
+import android.app.Application
+import android.arch.persistence.room.Room
+import com.core.commons.Constants
 import com.core.domain.GamesRepository
+import com.core.service.local.AppDataBase
 import com.core.service.BuildConfig
-import com.core.service.GamesApi
-import com.core.service.Interceptor
+import com.core.service.remote.GamesApi
+import com.core.service.local.GamesDao
+import com.core.service.remote.Interceptor
 import com.core.service.repository.GamesRepositoryImpl
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
@@ -30,9 +35,11 @@ val serviceModule = module {
     factory { Interceptor() }
     factory { provideOkHttpClient(get()) }
     factory { provideGamesApi(get()) }
-    factory { provideGamesRepository(get()) }
+    factory { provideGamesRepository(get(), get()) }
 
     single { provideRetrofit(get()) }
+    single { provideGameDataBase(get()) }
+    single { provideGamesDao(get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
@@ -44,4 +51,14 @@ fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient =
 
 fun provideGamesApi(retrofit: Retrofit): GamesApi = retrofit.create(GamesApi::class.java)
 
-fun provideGamesRepository(api: GamesApi): GamesRepository = GamesRepositoryImpl(api)
+fun provideGamesRepository(api: GamesApi, dao: GamesDao): GamesRepository = GamesRepositoryImpl(api, dao)
+
+fun provideGameDataBase(application: Application): AppDataBase =
+    Room.databaseBuilder(
+        application,
+        AppDataBase::class.java,
+        Constants.TABLE_GAMES
+    ).fallbackToDestructiveMigration().build()
+
+fun provideGamesDao(appDataBase: AppDataBase): GamesDao = appDataBase.gamesDao()
+

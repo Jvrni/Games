@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -54,7 +55,7 @@ dependencies {
     implementation(project(":features:home"))
     implementation(project(":features:details"))
 
-    implementation(project(":core:common"))
+    implementation(project(":core:commons"))
     implementation(project(":core:designSystem"))
     implementation(project(":core:destinations"))
     implementation(project(":core:domain"))
@@ -76,6 +77,10 @@ dependencies {
     //Retrofit
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
+
+    //Room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
