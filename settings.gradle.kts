@@ -21,4 +21,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "Games"
 include(":app")
- 
+include(":core")
+include(":features")
+include(":core:designSystem")
+include(":core:common")
+include(":core:destionations")
+include(":core:domain")
+include(":core:service")
+include(":features:splash")
+include(":features:home")
+include(":features:details")
