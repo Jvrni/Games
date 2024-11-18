@@ -1,4 +1,4 @@
-package com.core.destionations
+package com.core.destinations
 
 import org.junit.Test
 

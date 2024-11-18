@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.games"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.games"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -50,6 +50,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":features:splash"))
+    implementation(project(":features:home"))
+    implementation(project(":features:details"))
+
+    implementation(project(":core:common"))
+    implementation(project(":core:designSystem"))
+    implementation(project(":core:destinations"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:service"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -59,6 +68,15 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    //Koin
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
+    //Retrofit
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
