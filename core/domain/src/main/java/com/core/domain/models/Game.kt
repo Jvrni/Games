@@ -1,9 +1,14 @@
-package com.core.commons.models
+package com.core.domain.models
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import com.core.commons.Constants.TABLE_GAMES
+import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.core.commons.base.Constants.TABLE_GAMES
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Parcelize
+@Serializable
 @Entity(tableName = TABLE_GAMES)
 data class Game(
     @PrimaryKey val id: Int,
@@ -16,4 +21,4 @@ data class Game(
     val publisher: String,
     val developer: String,
     val releaseDate: String
-)
+): Parcelable

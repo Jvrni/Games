@@ -1,8 +1,8 @@
 package com.games.di
 
-import android.app.Application
-import android.arch.persistence.room.Room
-import com.core.commons.Constants
+import android.content.Context
+import androidx.room.Room
+import com.core.commons.base.Constants
 import com.core.domain.GameRepository
 import com.core.service.local.AppDataBase
 import com.core.service.BuildConfig
@@ -11,6 +11,7 @@ import com.core.service.local.GamesDao
 import com.core.service.remote.Interceptor
 import com.core.service.repository.GameRepositoryImpl
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,12 +35,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 val serviceModule = module {
     factory { Interceptor() }
     factory { provideOkHttpClient(get()) }
-    factory { provideGamesApi(get()) }
-    factory { provideGamesRepository(get(), get()) }
 
     single { provideRetrofit(get()) }
-    single { provideGameDataBase(get()) }
+    single { provideGameDataBase(androidContext()) }
     single { provideGamesDao(get()) }
+
+    factory { provideGamesApi(get()) }
+    factory { provideGamesRepository(get(), get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
@@ -49,16 +51,15 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
 fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient =
     OkHttpClient().newBuilder().addInterceptor(interceptor).build()
 
-fun provideGamesApi(retrofit: Retrofit): GamesApi = retrofit.create(GamesApi::class.java)
-
-fun provideGamesRepository(api: GamesApi, dao: GamesDao): GameRepository = GameRepositoryImpl(api, dao)
-
-fun provideGameDataBase(application: Application): AppDataBase =
+fun provideGameDataBase(context: Context): AppDataBase =
     Room.databaseBuilder(
-        application,
+        context,
         AppDataBase::class.java,
         Constants.TABLE_GAMES
     ).fallbackToDestructiveMigration().build()
 
 fun provideGamesDao(appDataBase: AppDataBase): GamesDao = appDataBase.gamesDao()
 
+fun provideGamesApi(retrofit: Retrofit): GamesApi = retrofit.create(GamesApi::class.java)
+
+fun provideGamesRepository(api: GamesApi, dao: GamesDao): GameRepository = GameRepositoryImpl(api, dao)

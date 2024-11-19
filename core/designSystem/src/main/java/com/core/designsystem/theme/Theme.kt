@@ -38,8 +38,7 @@ fun GamesTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor =
-                if (darkTheme) colorScheme.primary.toArgb() else colorScheme.secondary.toArgb()
+            window.statusBarColor = Color.Transparent.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
