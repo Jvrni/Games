@@ -1,7 +1,10 @@
 package com.games.di
 
+import androidx.lifecycle.SavedStateHandle
+import com.features.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import com.features.splash.SplashViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 /**
@@ -20,4 +23,5 @@ import org.koin.dsl.module
 
 val uiModule = module {
     viewModelOf(::SplashViewModel)
+    viewModelOf(::HomeViewModel)
 }

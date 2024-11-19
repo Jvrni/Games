@@ -4,6 +4,7 @@ import com.core.domain.GameRepository
 import com.core.service.local.GamesDao
 import com.core.service.remote.GamesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -32,17 +33,18 @@ class GameRepositoryImpl(
     private val service: GamesApi,
     private val dao: GamesDao
 ): GameRepository {
-    override fun get() = flow {
+
+    override fun fetch(): Flow<Unit> = flow {
         val list = dao.getAllGames()
 
         if (list.isNotEmpty()) {
-            emit(list)
+            emit(Unit)
             return@flow
         }
 
-        val result = service.get().map { it.toGame() }
-
-        dao.insertGames(list)
-        emit(result)
+        dao.insertGames(service.get().map { it.toGame() })
+        emit(Unit)
     }.flowOn(Dispatchers.IO)
+
+    override fun get() = flow { emit(dao.getAllGames()) }.flowOn(Dispatchers.IO)
 }

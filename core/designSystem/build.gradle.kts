@@ -49,6 +49,7 @@ dependencies {
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.landscapist.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

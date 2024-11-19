@@ -13,20 +13,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class Destinations {
     @Serializable
-    data object Splash: Destinations()
+    data object Splash : Destinations()
 
     @Serializable
-    data class Home(val games: List<Game>): Destinations() {
-        companion object {
-            val typeMap = mapOf(typeOf<Game>() to serializableType<Game>())
-
-            fun from(savedStateHandle: SavedStateHandle) =
-                savedStateHandle.toRoute<Details>(typeMap)
-        }
-    }
+    data object Home : Destinations()
 
     @Serializable
-    data class Details(val game: Game): Destinations() {
+    data class Details(val game: Game) : Destinations() {
         companion object {
             val typeMap = mapOf(typeOf<Game>() to serializableType<Game>())
 
