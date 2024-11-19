@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
 import androidx.navigation.toRoute
-import com.core.commons.models.Game
+import com.core.domain.models.Game
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.reflect.typeOf
@@ -16,10 +16,17 @@ sealed class Destinations {
     data object Splash: Destinations()
 
     @Serializable
-    data object Home: Destinations()
+    data class Home(val games: List<Game>): Destinations() {
+        companion object {
+            val typeMap = mapOf(typeOf<Game>() to serializableType<Game>())
+
+            fun from(savedStateHandle: SavedStateHandle) =
+                savedStateHandle.toRoute<Details>(typeMap)
+        }
+    }
 
     @Serializable
-    data class Details(val games: Game): Destinations() {
+    data class Details(val game: Game): Destinations() {
         companion object {
             val typeMap = mapOf(typeOf<Game>() to serializableType<Game>())
 

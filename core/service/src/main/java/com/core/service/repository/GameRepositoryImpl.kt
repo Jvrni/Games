@@ -3,7 +3,9 @@ package com.core.service.repository
 import com.core.domain.GameRepository
 import com.core.service.local.GamesDao
 import com.core.service.remote.GamesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 /**
  * ENGLISH
@@ -38,6 +40,9 @@ class GameRepositoryImpl(
             return@flow
         }
 
-        emit(service.get().map { it.toGame() })
-    }
+        val result = service.get().map { it.toGame() }
+
+        dao.insertGames(list)
+        emit(result)
+    }.flowOn(Dispatchers.IO)
 }

@@ -3,6 +3,7 @@ package com.games.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import com.core.destinations.Destinations
+import com.features.splash.splashGraph
 import com.wygo.navigation.RouterImpl
 
 @Composable
@@ -11,5 +12,6 @@ fun Navigator(router: RouterImpl) {
         router.navigationController,
         startDestination = Destinations.Splash
     ) {
+        splashGraph(router)
     }
 }

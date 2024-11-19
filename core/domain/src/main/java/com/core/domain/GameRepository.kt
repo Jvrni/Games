@@ -1,6 +1,6 @@
 package com.core.domain
 
-import com.core.commons.models.Game
+import com.core.domain.models.Game
 import kotlinx.coroutines.flow.Flow
 
 interface GameRepository {
