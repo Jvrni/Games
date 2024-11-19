@@ -1,6 +1,7 @@
 package com.games.di
 
 import com.core.domain.usecase.GetGames
+import com.core.domain.usecase.FetchGames
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -19,5 +20,6 @@ import org.koin.dsl.module
  */
 
 val domainModule = module {
+    factoryOf(::FetchGames)
     factoryOf(::GetGames)
 }

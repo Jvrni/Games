@@ -4,7 +4,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-val primary = Color(0xFFA333FF)
+val primary = Color(0xFFFF040B)
 
 val black202020 = Color(0xFF202020)
 val black000000 = Color(0xFF000000)

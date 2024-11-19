@@ -16,6 +16,6 @@ interface SplashContract :
     }
 
     sealed class Effect {
-        data class NavigateToHome(val games: List<Game>) : Effect()
+        data object NavigateToHome : Effect()
     }
 }

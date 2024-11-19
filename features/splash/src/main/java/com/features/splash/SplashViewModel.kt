@@ -2,7 +2,7 @@ package com.features.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.core.domain.usecase.GetGames
+import com.core.domain.usecase.FetchGames
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SplashViewModel(private val getGames: GetGames) : ViewModel(), SplashContract {
+class SplashViewModel(private val fetchGames: FetchGames) : ViewModel(), SplashContract {
 
     private val mutableState = MutableStateFlow(SplashContract.State())
     override val state: StateFlow<SplashContract.State> = mutableState
@@ -36,13 +36,13 @@ class SplashViewModel(private val getGames: GetGames) : ViewModel(), SplashContr
 
     private fun onStart() {
         viewModelScope.launch {
-            getGames()
+            fetchGames()
                 .catch {
                     it.message
                     mutableState.update { it.copy(error = true) }
                 }
-                .collect { list ->
-                    effectFlow.emit(SplashContract.Effect.NavigateToHome(list))
+                .collect {
+                    effectFlow.emit(SplashContract.Effect.NavigateToHome)
                 }
         }
     }
