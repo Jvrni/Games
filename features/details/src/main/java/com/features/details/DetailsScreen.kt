@@ -30,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -151,7 +152,7 @@ fun DetailsScreen(state: DetailsContract.State, event: (DetailsContract.Event) -
         ) {
             Text(
                 modifier = Modifier.padding(top = 30.dp, start = 16.dp),
-                text = "Description",
+                text = stringResource(com.features.details.R.string.label_description),
                 style = Typography.labelSmall.copy(fontSize = 14.sp),
                 color = Colors.tertiary
             )
@@ -165,7 +166,7 @@ fun DetailsScreen(state: DetailsContract.State, event: (DetailsContract.Event) -
 
             Text(
                 modifier = Modifier.padding(top = 10.dp, start = 16.dp),
-                text = "Category",
+                text = stringResource(com.features.details.R.string.label_category),
                 style = Typography.labelSmall.copy(fontSize = 14.sp),
                 color = Colors.tertiary
             )
@@ -179,7 +180,7 @@ fun DetailsScreen(state: DetailsContract.State, event: (DetailsContract.Event) -
 
             Text(
                 modifier = Modifier.padding(top = 10.dp, start = 16.dp),
-                text = "Release date",
+                text = stringResource(com.features.details.R.string.label_release_date),
                 style = Typography.labelSmall.copy(fontSize = 14.sp),
                 color = Colors.tertiary
             )
@@ -196,7 +197,7 @@ fun DetailsScreen(state: DetailsContract.State, event: (DetailsContract.Event) -
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Click ",
+                    text = stringResource(com.features.details.R.string.label_click),
                     style = Typography.labelSmall.copy(fontSize = 14.sp),
                     color = Colors.outline
                 )
@@ -209,13 +210,13 @@ fun DetailsScreen(state: DetailsContract.State, event: (DetailsContract.Event) -
                         )
                         context.startActivity(urlIntent)
                     },
-                    text = "here ",
+                    text = stringResource(com.features.details.R.string.label_here),
                     style = Typography.labelSmall.copy(fontSize = 14.sp),
                     color = Colors.tertiary
                 )
 
                 Text(
-                    text = "to visit website",
+                    text = stringResource(com.features.details.R.string.label_to_visit_website),
                     style = Typography.labelSmall.copy(fontSize = 14.sp),
                     color = Colors.outline
                 )
@@ -226,7 +227,7 @@ fun DetailsScreen(state: DetailsContract.State, event: (DetailsContract.Event) -
                     .padding(top = 60.dp)
                     .align(Alignment.CenterHorizontally)
                     .clickable { event.invoke(DetailsContract.Event.OnShowDeleteBottomSheet(true)) },
-                text = "Delete",
+                text = stringResource(com.features.details.R.string.label_delete),
                 style = Typography.labelSmall.copy(fontSize = 16.sp),
                 color = Colors.error
             )
