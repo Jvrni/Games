@@ -2,6 +2,7 @@ package com.core.service.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
 /**
  * ENGLISH
@@ -21,7 +22,7 @@ import okhttp3.Response
  * Puedes cifrar tus claves o agregarlas a tu [local.properties].
  */
 
-class Interceptor : Interceptor {
+class Interceptor @Inject constructor(): Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(chain.request())
     }

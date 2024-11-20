@@ -17,6 +17,7 @@ interface HomeContract :
     sealed class Event {
         data object OnStart : Event()
         data class OnFilter(val search: String, val category: String) : Event()
+        data class OnNavigateToDetails(val id: Int) : Event()
     }
 
     sealed class Effect {

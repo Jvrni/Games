@@ -1,9 +1,9 @@
-package com.wygo.navigation
+package com.games.navigation
 
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.core.destinations.Destinations
-import com.destinations.Router
+import com.core.destinations.Router
 
 class RouterImpl(
     navController: NavHostController

@@ -1,6 +1,4 @@
-package com.destinations
-
-import com.core.destinations.Destinations
+package com.core.destinations
 
 interface Router<T> {
     val navigationController: T

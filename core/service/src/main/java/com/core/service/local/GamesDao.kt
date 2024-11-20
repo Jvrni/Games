@@ -16,8 +16,8 @@ interface GamesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun insertGames(games: List<Game>)
 
     @Update
-    fun updateGames(games: Game)
+    fun updateGames(game: Game)
 
     @Delete
-    fun deleteGames(games: Game)
+    fun deleteGames(game: Game)
 }

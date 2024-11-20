@@ -1,17 +1,18 @@
 package com.features.home
 
 import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.core.commons.extensions.CollectInLaunchedEffect
+import com.core.commons.extensions.encode
 import com.core.commons.extensions.use
 import com.core.destinations.Destinations
-import com.destinations.Router
-import org.koin.androidx.compose.koinViewModel
+import com.core.destinations.Router
 
 fun NavGraphBuilder.homeGraph(router: Router<*>) {
     composable<Destinations.Home> {
-        val viewModel: HomeViewModel = koinViewModel()
+        val viewModel: HomeViewModel = hiltViewModel()
         val (state, event, effect) = use(viewModel = viewModel)
 
         LaunchedEffect(Unit) {
@@ -19,9 +20,15 @@ fun NavGraphBuilder.homeGraph(router: Router<*>) {
         }
 
         effect.CollectInLaunchedEffect { dispatch ->
-            when(dispatch) {
+            when (dispatch) {
                 is HomeContract.Effect.NavigateToDetails -> {
-                    router.navigateTo(Destinations.Details(dispatch.game), resetStack = true)
+                    router.navigateTo(
+                        Destinations.Details(dispatch.game.copy(
+                            thumbnail = dispatch.game.thumbnail.encode(),
+                            url = dispatch.game.url.encode()
+                        )),
+                        resetStack = false
+                    )
                 }
             }
         }

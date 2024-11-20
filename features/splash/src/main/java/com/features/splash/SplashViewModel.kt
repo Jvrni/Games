@@ -3,6 +3,7 @@ package com.features.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.core.domain.usecase.FetchGames
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -11,8 +12,10 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel(private val fetchGames: FetchGames) : ViewModel(), SplashContract {
+@HiltViewModel
+class SplashViewModel @Inject constructor(private val fetchGames: FetchGames) : ViewModel(), SplashContract {
 
     private val mutableState = MutableStateFlow(SplashContract.State())
     override val state: StateFlow<SplashContract.State> = mutableState
