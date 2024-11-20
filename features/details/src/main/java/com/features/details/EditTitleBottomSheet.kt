@@ -29,6 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.core.designsystem.components.TextField
@@ -64,7 +65,9 @@ fun EditTitleBottomSheet(state: DetailsContract.State, event: (DetailsContract.E
         }
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 12.dp).padding(bottom = 12.dp),
+            modifier = Modifier
+                .padding(horizontal = 12.dp)
+                .padding(bottom = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             IconButton(modifier = Modifier.align(Alignment.End), onClick = {
@@ -111,7 +114,7 @@ fun EditTitleBottomSheet(state: DetailsContract.State, event: (DetailsContract.E
                     event.invoke(DetailsContract.Event.OnSave(text.value))
                 }) {
 
-                Text("Save")
+                Text(stringResource(R.string.edit_label_save))
             }
         }
     }

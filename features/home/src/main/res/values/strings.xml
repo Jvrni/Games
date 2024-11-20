@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="place_holder_search_games">Search games ...</string>
+    <string name="label_categories">Categories</string>
+    <string name="label_error_title_not_found">Not found</string>
+    <string name="label_error_description_no_games_found">No games found</string>
+</resources>

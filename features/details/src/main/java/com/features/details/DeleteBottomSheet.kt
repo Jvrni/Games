@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.core.designsystem.theme.Colors
@@ -58,7 +59,10 @@ fun DeleteBottomSheet(state: DetailsContract.State, event: (DetailsContract.Even
         }
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp).padding(bottom = 12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp)
+                .padding(bottom = 12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             IconButton(modifier = Modifier.align(Alignment.End), onClick = {
@@ -71,8 +75,10 @@ fun DeleteBottomSheet(state: DetailsContract.State, event: (DetailsContract.Even
             }
 
             Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 10.dp),
-                text = "Are you sure you want to delete?",
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 10.dp),
+                text = stringResource(R.string.delete_label_title_are_you_sure_you_want_to_delete),
                 style = Typography.labelSmall.copy(fontSize = 14.sp),
                 color = Colors.tertiary
             )
@@ -85,7 +91,7 @@ fun DeleteBottomSheet(state: DetailsContract.State, event: (DetailsContract.Even
                     event.invoke(DetailsContract.Event.OnDelete)
                 }) {
 
-                Text("Confirm")
+                Text(stringResource(R.string.delete_label_confirm))
             }
         }
     }

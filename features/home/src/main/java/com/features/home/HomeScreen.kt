@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -60,7 +61,8 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
 
                 TextField(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp).padding(top = 12.dp)
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 12.dp)
                         .border(
                             0.3.dp,
                             shape = RoundedCornerShape(30.dp),
@@ -75,7 +77,7 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
                     ),
                     shape = RoundedCornerShape(30.dp),
                     height = 54.dp,
-                    placeHolder = "Search things to do ...",
+                    placeHolder = stringResource(com.features.home.R.string.place_holder_search_games),
                     label = "",
                     text = text,
                     shadow = 1.dp,
@@ -95,7 +97,7 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
                     modifier = Modifier
                         .padding(top = 24.dp, start = 24.dp)
                         .align(Alignment.Start),
-                    text = "Categories",
+                    text = stringResource(com.features.home.R.string.label_categories),
                     style = Typography.labelLarge.copy(fontSize = 14.sp),
                     color = Colors.tertiary
                 )
@@ -126,13 +128,13 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
                 ) {
                     Text(
                         modifier = Modifier.padding(top = 68.dp, bottom = 8.dp),
-                        text = "Not found",
+                        text = stringResource(com.features.home.R.string.label_error_title_not_found),
                         style = Typography.labelLarge.copy(fontSize = 18.sp),
                         color = Colors.tertiary
                     )
 
                     Text(
-                        text = "No games found",
+                        text = stringResource(com.features.home.R.string.label_error_description_no_games_found),
                         style = Typography.labelSmall.copy(fontSize = 16.sp),
                         color = Colors.outline
                     )
