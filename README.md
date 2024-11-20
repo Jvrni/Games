@@ -59,6 +59,6 @@ The data layer is implemented to connect to our web service, in this case it is 
 ![Diagram showing the data layer architecture](images/architecture-data-layer.png "Diagram showing the data layer architecture")
 
 
-The repository has its own model. For example, the `Value Repository` has a `Value Response` model.
+The repository has its own model. For example, the `Game Repository` has a `Game Response` model.
 
 Repositories are the public API for other layers, they provide the _only_ way to access the app data. The repositories typically offer one or more methods for reading and writing data.
