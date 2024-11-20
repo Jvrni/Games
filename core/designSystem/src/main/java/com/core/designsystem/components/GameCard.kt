@@ -1,6 +1,7 @@
 package com.core.designsystem.components
 
 import android.net.Uri
+import android.os.Parcelable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -35,6 +36,8 @@ import com.core.designsystem.theme.GamesTheme
 import com.core.designsystem.theme.Typography
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 @Composable
 fun GameCard(entity: GameCardEntity, onClick: () -> Unit) {
@@ -125,19 +128,23 @@ fun GameCard(entity: GameCardEntity, onClick: () -> Unit) {
     }
 }
 
+@Parcelize
+@Serializable
 data class GameCardEntity(
-    val image: String,
-    val title: String,
-    val description: String,
-    val creator: String,
-    val genre: String,
-    val date: String
-)
+    val id: Int = 0,
+    val image: String = "",
+    val title: String = "",
+    val description: String = "",
+    val creator: String = "",
+    val genre: String = "",
+    val date: String = "",
+    val url: String = ""
+): Parcelable
 
 @Preview
 @Composable
-private fun PrevEventCardV() {
+private fun PrevGameCard() {
     GamesTheme {
-        GameCard(GameCardEntity("", "", "", "", "", "")) {}
+        GameCard(GameCardEntity()) {}
     }
 }

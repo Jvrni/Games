@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.org.jetbrains.kotlin.kapt)
+    id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -70,9 +71,9 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
 
-    //Koin
-    implementation(libs.koin.core)
-    implementation(libs.koin.android)
+    //Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.hilt.android.compiler)
 
     //Retrofit
     implementation(libs.converter.gson)

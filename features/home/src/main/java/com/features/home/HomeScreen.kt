@@ -51,8 +51,8 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
             ) {
                 Image(
                     modifier = Modifier
-                        .size(70.dp)
-                        .padding(top = 16.dp)
+                        .size(80.dp)
+                        .padding(top = 56.dp)
                         .align(Alignment.CenterHorizontally),
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = ""
@@ -60,7 +60,7 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
 
                 TextField(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = 16.dp).padding(top = 12.dp)
                         .border(
                             0.3.dp,
                             shape = RoundedCornerShape(30.dp),
@@ -74,7 +74,7 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
                         focusedIndicatorColor = Color.White
                     ),
                     shape = RoundedCornerShape(30.dp),
-                    height = 50.dp,
+                    height = 54.dp,
                     placeHolder = "Search things to do ...",
                     label = "",
                     text = text,
@@ -114,7 +114,7 @@ fun HomeScreen(state: HomeContract.State, event: (HomeContract.Event) -> Unit) {
 
         items(state.list) { item ->
             GameCard(entity = item) {
-
+                event.invoke(HomeContract.Event.OnNavigateToDetails(item.id))
             }
         }
 

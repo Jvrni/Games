@@ -7,8 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import com.core.designsystem.theme.GamesTheme
 import com.games.navigation.Navigator
-import com.wygo.navigation.RouterImpl
+import com.games.navigation.RouterImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

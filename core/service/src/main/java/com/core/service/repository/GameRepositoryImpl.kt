@@ -1,12 +1,14 @@
 package com.core.service.repository
 
 import com.core.domain.GameRepository
+import com.core.domain.models.Game
 import com.core.service.local.GamesDao
 import com.core.service.remote.GamesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 /**
  * ENGLISH
@@ -29,10 +31,10 @@ import kotlinx.coroutines.flow.flowOn
  * En este caso, tenemos nuestro repositorio implementado con flujo de corrutinas para intermediar con nuestra api ([GamesApi])
  */
 
-class GameRepositoryImpl(
+class GameRepositoryImpl @Inject constructor(
     private val service: GamesApi,
     private val dao: GamesDao
-): GameRepository {
+) : GameRepository {
 
     override fun fetch(): Flow<Unit> = flow {
         val list = dao.getAllGames()
@@ -47,4 +49,8 @@ class GameRepositoryImpl(
     }.flowOn(Dispatchers.IO)
 
     override fun get() = flow { emit(dao.getAllGames()) }.flowOn(Dispatchers.IO)
+
+    override fun update(game: Game) = flow { emit(dao.updateGames(game)) }.flowOn(Dispatchers.IO)
+
+    override fun delete(game: Game) = flow { emit(dao.deleteGames(game)) }.flowOn(Dispatchers.IO)
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
 import androidx.navigation.toRoute
+import com.core.designsystem.components.GameCardEntity
 import com.core.domain.models.Game
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

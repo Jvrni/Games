@@ -10,11 +10,15 @@ import com.core.service.remote.GamesApi
 import com.core.service.local.GamesDao
 import com.core.service.remote.Interceptor
 import com.core.service.repository.GameRepositoryImpl
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 /**
  * ENGLISH
@@ -32,34 +36,48 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Necesitamos tener una instancia de Retrofit ([provideRetrofit]) y OkHttpClient ([provideOkHttpClient]) para comunicarnos con nuestro servicio web.
  */
 
-val serviceModule = module {
-    factory { Interceptor() }
-    factory { provideOkHttpClient(get()) }
+@Module
+@InstallIn(SingletonComponent::class)
+class ServiceModule {
+    @Singleton
+    @Provides
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder().baseUrl(BuildConfig.API_URL).client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
 
-    single { provideRetrofit(get()) }
-    single { provideGameDataBase(androidContext()) }
-    single { provideGamesDao(get()) }
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient =
+        OkHttpClient().newBuilder().addInterceptor(interceptor).build()
 
-    factory { provideGamesApi(get()) }
-    factory { provideGamesRepository(get(), get()) }
+    @Singleton
+    @Provides
+    fun provideGameDataBase(@ApplicationContext context: Context): AppDataBase =
+        Room.databaseBuilder(
+            context,
+            AppDataBase::class.java,
+            Constants.TABLE_GAMES
+        ).fallbackToDestructiveMigration().build()
+
+    @Singleton
+    @Provides
+    fun provideGamesDao(appDataBase: AppDataBase): GamesDao = appDataBase.gamesDao()
+
+    @Singleton
+    @Provides
+    fun provideGamesApi(retrofit: Retrofit): GamesApi = retrofit.create(GamesApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideGamesRepository(api: GamesApi, dao: GamesDao): GameRepository =
+        GameRepositoryImpl(api, dao)
+
 }
 
-fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
-    Retrofit.Builder().baseUrl(BuildConfig.API_URL).client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create()).build()
 
-fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient =
-    OkHttpClient().newBuilder().addInterceptor(interceptor).build()
 
-fun provideGameDataBase(context: Context): AppDataBase =
-    Room.databaseBuilder(
-        context,
-        AppDataBase::class.java,
-        Constants.TABLE_GAMES
-    ).fallbackToDestructiveMigration().build()
 
-fun provideGamesDao(appDataBase: AppDataBase): GamesDao = appDataBase.gamesDao()
 
-fun provideGamesApi(retrofit: Retrofit): GamesApi = retrofit.create(GamesApi::class.java)
 
-fun provideGamesRepository(api: GamesApi, dao: GamesDao): GameRepository = GameRepositoryImpl(api, dao)
+
+

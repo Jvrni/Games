@@ -1,4 +1,4 @@
-package com.features.splash
+package com.features.details
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -9,23 +9,22 @@ import com.core.commons.extensions.use
 import com.core.destinations.Destinations
 import com.core.destinations.Router
 
-fun NavGraphBuilder.splashGraph(router: Router<*>) {
-    composable<Destinations.Splash> {
-        val viewModel: SplashViewModel = hiltViewModel()
+fun NavGraphBuilder.detailsGraph(router: Router<*>) {
+    composable<Destinations.Details>(typeMap = Destinations.Details.typeMap) {
+
+        val viewModel: DetailsViewModel = hiltViewModel()
         val (state, event, effect) = use(viewModel = viewModel)
 
         LaunchedEffect(Unit) {
-            event.invoke(SplashContract.Event.OnStart)
+            event.invoke(DetailsContract.Event.OnStart)
         }
 
         effect.CollectInLaunchedEffect { dispatch ->
-            when(dispatch) {
-                is SplashContract.Effect.NavigateToHome -> {
-                    router.navigateTo(Destinations.Home, resetStack = true)
-                }
+            when (dispatch) {
+                is DetailsContract.Effect.OnBack -> router.back()
             }
         }
 
-        SplashScreen(state, event)
+        DetailsScreen(state, event)
     }
 }
